@@ -4,16 +4,35 @@ public class LoginScript {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Enter username: ");
-        String username = scanner.nextLine();
+        final String CORRECT_USERNAME = "Admin";
+        final String CORRECT_PASSWORD = "Password";
+        final int MAX_ATTEMPTS = 3;
 
-        System.out.print("Enter password: ");
-        String password = scanner.nextLine();
+        int attempts = 0;
 
-        if (username.equals("Admin") && password.equals("Password")) {
-            System.out.println("Welcome to the application");
-        } else {
-            System.out.println("ACCESS DENIED");
+        while (attempts < MAX_ATTEMPTS) {
+            System.out.print("Enter username: ");
+            String username = scanner.nextLine().toLowerCase(); // Making username case insensitive
+
+            if (username.equals(CORRECT_USERNAME.toLowerCase())) {
+                System.out.print("Enter password: ");
+                String password = scanner.nextLine();
+
+                if (password.equals(CORRECT_PASSWORD)) {
+                    System.out.println("Welcome to the application");
+                    break;
+                } else {
+                    System.out.println("ACCESS DENIED");
+                }
+            } else {
+                System.out.println("ACCESS DENIED");
+            }
+
+            attempts++;
+        }
+
+        if (attempts == MAX_ATTEMPTS) {
+            System.out.println("Maximum attempts reached. Closing the application.");
         }
 
         scanner.close();
